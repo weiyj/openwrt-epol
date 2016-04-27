@@ -44,7 +44,7 @@ define Package/python-newt
   CATEGORY:=Languages
   TITLE:=Python 2 bindings for newt
   URL:=https://fedorahosted.org/newt/
-  DEPENDS:=+python +newt +libpopt
+  DEPENDS:=+python +libnewt +libpopt
 endef
 
 define Package/libnewt/install
