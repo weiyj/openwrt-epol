@@ -13,7 +13,7 @@ PKG_VERSION:=0.0.1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=https://github.com/weiyj/openwrt-wuti.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=aef82e5dc9da9d72a8d312060ad173a82553d0c7
+PKG_SOURCE_VERSION:=ae839bfdb70e2703eba7787c5527f83632e6bdbf
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 
 PKG_LICENSE:=GPLv2
@@ -39,19 +39,13 @@ endef
 define Package/python-wuti/install
 	$(INSTALL_DIR) $(1)/sbin
 	$(CP) $(PKG_BUILD_DIR)/wuti.py $(1)/sbin/wuti
+	chmod +x $(1)/sbin/wuti
 
 	$(INSTALL_DIR) $(1)$(PYTHON_PKG_DIR)/
 	$(CP) $(PKG_INSTALL_DIR)$(PYTHON_PKG_DIR)/* $(1)$(PYTHON_PKG_DIR)/
 
-	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./files/wutid.init $(1)/etc/init.d/wutid
-endef
-
-define Package/python-wuti/postinst
-#!/bin/sh
-[ -n "$${IPKG_INSTROOT}" ] || {
-	/etc/init.d/wutid enable
-}
+	$(INSTALL_DIR) $(1)/etc/profile.d
+	$(INSTALL_BIN) ./files/wuti.sh $(1)/etc/profile.d/wuti.sh
 endef
 
 $(eval $(call BuildPackage,python-wuti))
