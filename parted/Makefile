@@ -35,13 +35,12 @@ define Package/parted/description
   to new hard disks.
 endef
 
-define Build/Configure
-	$(call Build/Configure/Default, \
-		--without-readline \
-		--disable-device-mapper \
-		--disable-nls \
-	)
-endef
+TARGET_CFLAGS += -Dloff_t=off_t
+
+CONFIGURE_ARGS += \
+	--without-readline \
+	--disable-device-mapper \
+	--disable-nls
 
 define Package/parted/install	
 	$(INSTALL_DIR) $(1)/usr/sbin
